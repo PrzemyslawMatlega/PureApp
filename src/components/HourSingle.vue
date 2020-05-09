@@ -63,6 +63,7 @@
             }
         },
         methods: {
+            //na computed
             dateFilter(value) {
                 if (value === this.dateBreakpoints[0]) {
                     return 'Jutro'

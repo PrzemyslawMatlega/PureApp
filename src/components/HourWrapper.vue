@@ -4,7 +4,10 @@
         <div class="hour-wrapper__content" :class="{'hour-wrapper__content--scroll' : scrollActive  }"
             @mousedown.prevent="startScrollOnWrapper" @mouseup.prevent="stopScrollOnWrapper"
             @mousemove.prevent="doScrollOnwrapper" @mouseleave.prevent="stopScrollOnWrapper">
-            <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement" :dateBreakpoints="dateBreakpoints" />
+            <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement"
+                :dateBreakpoints="dateBreakpoints" />
+            <BaseChart :chartData="getTempData"/>
+            <!-- <BaseChart :chartData="getPressureData"/> -->
         </div>
 
     </div>
@@ -12,6 +15,7 @@
 
 <script>
     import HourSingle from './HourSingle';
+    import BaseChart from './BaseChart';
 
     export default {
         props: {
@@ -25,6 +29,14 @@
                 scrollActive: false,
                 scrollStartValue: 0,
                 dateBreakpoints: []
+            }
+        },
+        computed:{
+            getPressureData(){
+                return this.weatherData.map(singleElement => singleElement.main.pressure)
+            },
+            getTempData(){
+                return this.weatherData.map(singleElement => Math.round(singleElement.main.temp))
             }
         },
         methods: {
@@ -41,29 +53,31 @@
             stopScrollOnWrapper() {
                 this.scrollActive = false;
                 this.scrollStartValue = 0;
+            },
+            setDateBreakpoints() {
+                const tomorrow = new Date();
+                const dayAfterTomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2)
+
+                function dateToExactString(date) {
+                    const dd = String(date.getDate()).padStart(2, '0');
+                    const mm = String(date.getMonth() + 1).padStart(2, '0');
+                    const yyyy = date.getFullYear();
+
+                    return `${yyyy}-${mm}-${dd} 00:00:00`
+                }
+
+                this.dateBreakpoints = [dateToExactString(tomorrow), dateToExactString(dayAfterTomorrow)]
             }
         },
         mounted() {
-            // Check which day is tomorrow and  day after tomorrow.
-            const tomorrow = new Date();
-            const dayAfterTomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2)
-            
-            function dateToExactString(date) {
-                const dd = String(date.getDate()).padStart(2, '0');
-                const mm = String(date.getMonth() + 1).padStart(2, '0'); 
-                const yyyy = date.getFullYear();
-
-                return `${yyyy}-${mm}-${dd} 00:00:00`
-            }
-
-            this.dateBreakpoints = [dateToExactString(tomorrow), dateToExactString(dayAfterTomorrow)]
-
+            this.setDateBreakpoints()
             window.addEventListener('mouseup', this.stopScrollingWrapper);
         },
         components: {
-            HourSingle
+            HourSingle,
+            BaseChart
         }
     }
 </script>
@@ -75,6 +89,7 @@
 
         &__content {
             display: flex;
+            position: relative;
             justify-content: flex-start;
             overflow-x: scroll;
             border: 1px solid black;
