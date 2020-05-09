@@ -2,8 +2,10 @@
     <div class="hour-wrapper">
 
         <div class="hour-wrapper__content" :class="{'hour-wrapper__content--scroll' : scrollActive  }"
-            @mousedown.prevent="startScrollOnWrapper" @mouseup.prevent="stopScrollOnWrapper"
-            @mousemove.prevent="doScrollOnwrapper" @mouseleave.prevent="stopScrollOnWrapper">
+            @mousedown.prevent="startScrollOnWrapper"
+            @mouseup.prevent="stopScrollOnWrapper"
+            @mousemove.prevent="doScrollOnwrapper" 
+            @mouseleave.prevent="stopScrollOnWrapper">
             <HourSingle v-for="n in 20" :key="n" />
         </div>
         <h1>
@@ -20,7 +22,6 @@
             return {
                 scrollActive: false,
                 scrollStartValue: 0,
-                api: 'https://api.openweathermap.org/data/2.5/forecast?id=3094802&appid=ba6ac05450e5ab4c05207b3f61ccc518'
             }
         },
 
