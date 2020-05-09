@@ -1,0 +1,82 @@
+////////////////////////////////////////////////////////////////////////////////
+// MEDIA QUERIES
+////////////////////////////////////////////////////////////////////////////////
+
+$xsmall: 'only screen and (min-width: 360px)';
+$small: 'only screen and (min-width: 640px)';
+$medium: 'only screen and (min-width: 768px)';
+$large: 'only screen and (min-width: 1024px)';
+$xlarge: 'only screen and (min-width: 1280px)';
+$xxlarge: 'only screen and (min-width: 1440px)';
+$xxxlarge: 'only screen and (min-width: 1600px)';
+$fullhd: 'only screen and (min-width: 1920px)';
+$wqhd: 'only screen and (min-width: 2560px)';
+
+$portrait: 'orientation: portrait';
+$landscape: 'orientation: landscape';
+
+////////////////////////////////////////////////////////////////////////////////
+// COLORS
+////////////////////////////////////////////////////////////////////////////////
+
+$grey-bg: #F5F5F5;
+$grey-one: #C4C4C4;
+$grey-two:  #7B7B7B; 
+
+////////////////////////////////////////////////////////////////////////////////
+// ABSTRACT
+////////////////////////////////////////////////////////////////////////////////
+
+%main-grid{
+    display: grid;
+    grid-template-columns: 2rem 1fr 2rem;
+
+    @media #{$small}{
+        grid-template-columns: 4rem 1fr 4rem;
+    }
+
+    // @media #{$large}{
+    //     grid-template-columns: 1fr 95rem 1fr;
+    // }
+
+}
+
+%flex-cc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%flex-col-cc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+%column-base{
+    .day{
+        height: 3rem;
+    }
+    .hour{
+        height: 6rem;
+    }
+    .forecast{
+        height: 7.5rem;
+    }
+    .temp{
+        height: 21rem;
+    }
+    .rain{
+        height: 12rem;
+    }
+    .wind-dir{
+        height: 12rem;
+    }
+    .wind-speed{
+        height: 10rem;
+    }
+    .pressure{
+        height: 20rem;
+    }
+}
