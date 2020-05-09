@@ -2,15 +2,11 @@
     <div class="hour-wrapper">
 
         <div class="hour-wrapper__content" :class="{'hour-wrapper__content--scroll' : scrollActive  }"
-            @mousedown.prevent="startScrollOnWrapper"
-            @mouseup.prevent="stopScrollOnWrapper"
-            @mousemove.prevent="doScrollOnwrapper" 
-            @mouseleave.prevent="stopScrollOnWrapper">
-            <HourSingle v-for="n in 20" :key="n" />
+            @mousedown.prevent="startScrollOnWrapper" @mouseup.prevent="stopScrollOnWrapper"
+            @mousemove.prevent="doScrollOnwrapper" @mouseleave.prevent="stopScrollOnWrapper">
+            <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement" :dateBreakpoints="dateBreakpoints" />
         </div>
-        <h1>
-            {{scrollStartValue}}
-        </h1>
+
     </div>
 </template>
 
@@ -18,13 +14,19 @@
     import HourSingle from './HourSingle';
 
     export default {
+        props: {
+            weatherData: {
+                type: Array,
+                required: true,
+            }
+        },
         data() {
             return {
                 scrollActive: false,
                 scrollStartValue: 0,
+                dateBreakpoints: []
             }
         },
-
         methods: {
             startScrollOnWrapper(event) {
                 this.scrollActive = true;
@@ -42,6 +44,22 @@
             }
         },
         mounted() {
+            // Check which day is tomorrow and  day after tomorrow.
+            const tomorrow = new Date();
+            const dayAfterTomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2)
+            
+            function dateToExactString(date) {
+                const dd = String(date.getDate()).padStart(2, '0');
+                const mm = String(date.getMonth() + 1).padStart(2, '0'); 
+                const yyyy = date.getFullYear();
+
+                return `${yyyy}-${mm}-${dd} 00:00:00`
+            }
+
+            this.dateBreakpoints = [dateToExactString(tomorrow), dateToExactString(dayAfterTomorrow)]
+
             window.addEventListener('mouseup', this.stopScrollingWrapper);
         },
         components: {

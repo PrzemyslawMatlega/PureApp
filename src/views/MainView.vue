@@ -5,7 +5,7 @@
                 <FadeLoader v-if="loadingData ==='loading'" />
                 <div class="main-view__app" v-else-if="loadingData ==='success'">
                     <DescriptionColumn />
-                    <HourWrapper />
+                    <HourWrapper :weatherData="weatherData"/>
                 </div>
                 <div v-else-if="loadingData==='error'">
                     <h2 style="text-align:center"> Something went wrong. <br> Please try again later.</h2>
@@ -25,13 +25,13 @@
         data() {
             return {
                 apiKey: 'ba6ac05450e5ab4c05207b3f61ccc518',
-                weatherData: {},
+                weatherData: [],
                 loadingData: 'loading'
             }
         },
         mounted() {
             const weatherData = fetch(
-                `https://api.openweathermap.org/data/2.5/forecast?id=3094802&appid=${this.apiKey}`)
+                `https://api.openweathermap.org/data/2.5/forecast?id=3094802&lang=pl&units=metric&appid=${this.apiKey}`)
 
             weatherData
                 .then(response => response.json())
@@ -41,6 +41,7 @@
                         //Data for next 3 days 
                         this.weatherData = weatherData.list.slice(0,24)
                         this.loadingData = 'success';
+                        console.log(this.weatherData)
                     }
                     else{
                         this.loadingData = 'error'
