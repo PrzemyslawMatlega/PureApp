@@ -9,8 +9,18 @@
                 <AppChart :chartData="getPressureData" :chartName="'pressureChart'" />
             </div>
         </vuescroll>
-            <HourWrapperButton @buttonClicked="doScrollButton" v-if="buttonStatus !== 'Left'" />
-            <HourWrapperButton @buttonClicked="doScrollButton" :isReverse="true" v-if="buttonStatus !== 'Right'" />
+        <transition name="quick">
+            <div class="hour-wrapper__fade hour-wrapper__fade--left" v-show="buttonStatus !== 'Left'"></div>
+        </transition>
+        <transition name="quick">
+            <div class="hour-wrapper__fade hour-wrapper__fade--right" v-show="buttonStatus !== 'Right'"></div>
+        </transition>
+        <transition name="quick">
+            <HourWrapperButton @buttonClicked="doScrollButton" v-show="buttonStatus !== 'Left'" />
+        </transition>
+        <transition name="quick">
+            <HourWrapperButton @buttonClicked="doScrollButton" :isReverse="true" v-show="buttonStatus !== 'Right'" />
+        </transition>
     </div>
 </template>
 
@@ -140,6 +150,24 @@
 
             &::-webkit-scrollbar {
                 display: none;
+            }
+        }
+
+        &__fade {
+            position: absolute;
+            top: 0;
+            width: 10%;
+            height: 100%;
+
+            &--left {
+                left: 0;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 254, 254, 0));
+            }
+
+            &--right {
+                right: 0;
+                background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 254, 254, 0));
+
             }
         }
 
