@@ -1,7 +1,7 @@
 <template>
-    <div class="btn" :class="{'btn--reverse' : isReverse}">
-        <div class="btn__wrapper" @click="$emit('buttonClicked', isReverse ? 1 : -1 )">
-            <img src="../assets/img/arrow-btn.png" alt="" class="btn__arrow">
+    <div class="nav-btn" :class="{'nav-btn--reverse' : isReverse}">
+        <div class="nav-btn__wrapper" @click="$emit('buttonClicked', isReverse ? 1 : -1 )">
+            <img src="../assets/img/arrow-btn.png" alt="" class="nav-btn__arrow">
         </div>
     </div>
 </template>
@@ -14,20 +14,29 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .btn {
+<style lang="scss">
+    .nav-btn {
         position: absolute;
         left: -6rem;
         top: 50%;
+        transition: 0.3s opacity ease-in;
         transform: translateY(-50%);
+        opacity: 0;
 
         &__wrapper {
+        z-index: 100;
             position: relative;
             width: 12rem;
             height: 12rem;
             border-radius: 50%;
+            transition: 0.2s background ease-in;
             background: rgba(0, 0, 0, 0.2);
             cursor: pointer;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.4);
+
+            }
 
         }
 
@@ -44,9 +53,9 @@
             left: initial;
             right: -6rem;
 
-            img{
+            img {
                 right: initial;
-                left:2.5rem;
+                left: 2.5rem;
                 transform: translateY(-50%) rotate(180deg)
             }
         }

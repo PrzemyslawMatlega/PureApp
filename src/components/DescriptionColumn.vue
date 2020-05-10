@@ -21,16 +21,18 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
         .description-column{
             @extend %column-base;
             border-right: 2px solid $grey-border;
-
+            box-shadow: 5px 0 5px -5px #333;
+            z-index: 3;
             div{
+                position: relative;
                 @extend %flex-cc;
                 width: 14rem;
                 text-align: center;
-                border-bottom: 2px solid $grey-border;
+                border-bottom: 2px solid $grey-border;                
                 
             }
             div:last-of-type{

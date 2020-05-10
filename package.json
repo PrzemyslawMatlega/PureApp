@@ -12,7 +12,8 @@
     "chartjs-plugin-datalabels": "^0.7.0",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
-    "vue-spinner": "^1.0.3"
+    "vue-spinner": "^1.0.3",
+    "vuescroll": "^4.15.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
