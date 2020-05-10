@@ -6,8 +6,8 @@
             @mousemove.prevent="doScrollOnwrapper" @mouseleave.prevent="stopScrollOnWrapper">
             <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement"
                 :dateBreakpoints="dateBreakpoints" />
-            <BaseChart :chartData="getTempData"/>
-            <!-- <BaseChart :chartData="getPressureData"/> -->
+            <AppChart :chartData="getTempData" :chartName="'tempChart'" />
+            <AppChart :chartData="getPressureData" :chartName="'pressureChart'"/>
         </div>
 
     </div>
@@ -15,7 +15,7 @@
 
 <script>
     import HourSingle from './HourSingle';
-    import BaseChart from './BaseChart';
+    import AppChart from './AppChart';
 
     export default {
         props: {
@@ -46,7 +46,7 @@
             },
             doScrollOnwrapper(event) {
                 if (this.scrollActive) {
-                    const scrollDiff = (this.scrollStartValue - event.clientX) / 40
+                    const scrollDiff = (this.scrollStartValue - event.clientX) / 30
                     document.querySelector('.hour-wrapper__content').scrollBy(scrollDiff, 0)
                 }
             },
@@ -77,7 +77,7 @@
         },
         components: {
             HourSingle,
-            BaseChart
+            AppChart
         }
     }
 </script>

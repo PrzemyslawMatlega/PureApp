@@ -3,7 +3,6 @@
     <MainView />
   </div>
 </template>
-
 <script>
 import MainView from './views/MainView';
 
