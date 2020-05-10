@@ -38,7 +38,7 @@ export default {
             }
 
             h6{
-                font-size:1.6rem;
+                font-size:1.7rem;
                 color: $grey-txt;
             }
         }

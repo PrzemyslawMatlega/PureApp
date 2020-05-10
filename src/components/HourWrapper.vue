@@ -4,11 +4,14 @@
         <div class="hour-wrapper__content" :class="{'hour-wrapper__content--scroll' : scrollActive  }"
             @mousedown.prevent="startScrollOnWrapper" @mouseup.prevent="stopScrollOnWrapper"
             @mousemove.prevent="doScrollOnwrapper" @mouseleave.prevent="stopScrollOnWrapper">
+
             <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement"
                 :dateBreakpoints="dateBreakpoints" />
             <AppChart :chartData="getTempData" :chartName="'tempChart'" />
             <AppChart :chartData="getPressureData" :chartName="'pressureChart'" />
         </div>
+        <HourWrapperButton @buttonClicked="doScrollButton" />
+        <HourWrapperButton @buttonClicked="doScrollButton" :isReverse="true" />
 
     </div>
 </template>
@@ -16,6 +19,7 @@
 <script>
     import HourSingle from './HourSingle';
     import AppChart from './AppChart';
+    import HourWrapperButton from './HourWrapperButton';
 
     export default {
         props: {
@@ -44,15 +48,21 @@
                 this.scrollActive = true;
                 this.scrollStartValue = event.clientX;
             },
-            doScrollOnwrapper(event) {
-                if (this.scrollActive) {
-                    const scrollDiff = (this.scrollStartValue - event.clientX) / 30
-                    document.querySelector('.hour-wrapper__content').scrollBy(scrollDiff, 0)
-                }
-            },
             stopScrollOnWrapper() {
                 this.scrollActive = false;
                 this.scrollStartValue = 0;
+            },
+            doScrollOnwrapper(event) {
+                if (this.scrollActive) {
+                    const scrollDiff = (this.scrollStartValue - event.clientX) / 10
+                    document.querySelector('.hour-wrapper__content').scrollBy(scrollDiff, 0)
+                }
+            },
+            doScrollButton(value) {
+                for(let i= 0; i<141; i++){
+                    document.querySelector('.hour-wrapper__content').scrollBy( value, 0)
+                }
+                
             },
             setDateBreakpoints() {
                 let dayCounter = 1;
@@ -63,11 +73,13 @@
                     const dd = String(date.getDate()).padStart(2, '0');
                     const mm = String(date.getMonth() + 1).padStart(2, '0');
                     const yyyy = date.getFullYear();
-                    dayCounter = dayCounter+1;
+                    dayCounter = dayCounter + 1;
                     return `${yyyy}-${mm}-${dd} 00:00:00`
 
                 }
-                this.dateBreakpoints = Array.from({length:3}, () => dateToExactString())
+                this.dateBreakpoints = Array.from({
+                    length: 3
+                }, () => dateToExactString())
             }
         },
         mounted() {
@@ -76,7 +88,8 @@
         },
         components: {
             HourSingle,
-            AppChart
+            AppChart,
+            HourWrapperButton
         }
     }
 </script>
@@ -85,6 +98,8 @@
 <style lang="scss">
     .hour-wrapper {
         width: 140rem;
+        position: relative;
+        overflow: hidden;
 
         &__content {
             display: flex;
