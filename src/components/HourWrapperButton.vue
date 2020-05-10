@@ -1,7 +1,9 @@
 <template>
-    <div class="nav-btn" :class="{'nav-btn--reverse' : isReverse}">
-        <div class="nav-btn__wrapper" @click="$emit('buttonClicked', isReverse ? 1 : -1 )">
-            <img src="../assets/img/arrow-btn.png" alt="" class="nav-btn__arrow">
+    <div class="nav-btn" 
+        :class="{'nav-btn--reverse' : isReverse}">
+        <div class="nav-btn__wrapper" 
+            @click="$emit('buttonClicked', isReverse ? 1 : -1 )">
+                <img src="../assets/img/arrow-btn.png" alt="" class="nav-btn__arrow">
         </div>
     </div>
 </template>

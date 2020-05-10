@@ -3,23 +3,33 @@
 
         <vuescroll :ops="ops" @handle-scroll="handleScroll">
             <div class="hour-wrapper__content">
-                <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement"
+                <HourSingle 
+                    v-for="singleElement in weatherData" 
+                    :key="singleElement.dt" 
+                    :singleElement="singleElement"
                     :dateBreakpoints="dateBreakpoints" />
                 <AppChart :chartData="getTempData" :chartName="'tempChart'" />
                 <AppChart :chartData="getPressureData" :chartName="'pressureChart'" />
             </div>
         </vuescroll>
         <transition name="quick">
-            <div class="hour-wrapper__fade hour-wrapper__fade--left" v-show="buttonStatus !== 'Left'"></div>
+            <div class="hour-wrapper__fade hour-wrapper__fade--left" 
+            v-show="buttonStatus !== 'Left'"></div>
         </transition>
         <transition name="quick">
-            <div class="hour-wrapper__fade hour-wrapper__fade--right" v-show="buttonStatus !== 'Right'"></div>
+            <div class="hour-wrapper__fade hour-wrapper__fade--right" 
+            v-show="buttonStatus !== 'Right'"></div>
         </transition>
         <transition name="quick">
-            <HourWrapperButton @buttonClicked="doScrollButton" v-show="buttonStatus !== 'Left'" />
+            <HourWrapperButton 
+            @buttonClicked="doScrollButton" 
+            v-show="buttonStatus !== 'Left'" />
         </transition>
         <transition name="quick">
-            <HourWrapperButton @buttonClicked="doScrollButton" :isReverse="true" v-show="buttonStatus !== 'Right'" />
+            <HourWrapperButton 
+            @buttonClicked="doScrollButton" 
+            :isReverse="true" 
+            v-show="buttonStatus !== 'Right'" />
         </transition>
     </div>
 </template>
@@ -107,9 +117,7 @@
                     return `${yyyy}-${mm}-${dd} 00:00:00`
 
                 }
-                this.dateBreakpoints = Array.from({
-                    length: 3
-                }, () => dateToExactString())
+                this.dateBreakpoints = Array.from({length: 3}, () => dateToExactString())
             }
         },
         mounted() {
