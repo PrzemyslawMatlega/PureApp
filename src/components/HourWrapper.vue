@@ -85,12 +85,6 @@
                 }
 
             },
-            handleComplete() {
-                const {
-                    scrollLeft
-                } = this.$children[0].getPosition();
-                console.log('scroll complete！', scrollLeft)
-            },
             doScrollButton(value) {
 
                 this.$children[0].scrollBy({
