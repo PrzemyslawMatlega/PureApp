@@ -24,13 +24,14 @@ export default {
 <style lang="scss" scoped>
         .description-column{
             @extend %column-base;
-            border-right: 1px solid #cecece;
+            border-right: 2px solid $grey-border;
 
             div{
                 @extend %flex-cc;
                 width: 14rem;
                 text-align: center;
-                border-bottom: 1px solid #cecece;
+                border-bottom: 2px solid $grey-border;
+                
             }
             div:last-of-type{
                 border-bottom: none;
@@ -38,6 +39,7 @@ export default {
 
             h6{
                 font-size:1.6rem;
+                color: $grey-txt;
             }
         }
 </style>

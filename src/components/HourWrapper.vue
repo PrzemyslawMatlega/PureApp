@@ -92,7 +92,6 @@
             position: relative;
             justify-content: flex-start;
             overflow-x: scroll;
-            border: 1px solid black;
             width: 100%;
 
             &::-webkit-scrollbar {

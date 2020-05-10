@@ -48,8 +48,8 @@
 <style lang="scss">
     .base-chart {
         position: absolute;
-            width: 335rem;
-            left: 2rem;
+            width: 333rem;
+            left: 1rem;
 
         &--tempChart{
             top: 20.5rem;
@@ -65,6 +65,6 @@
     }
     
     #line-chart-pressure {
-        height: 22rem !important;
+        height: 20rem !important;
     }
 </style>

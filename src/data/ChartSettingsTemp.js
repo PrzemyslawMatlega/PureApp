@@ -5,10 +5,10 @@ export const optionsTemp = {
     },
     layout: {
         padding: {
-            left: 40,
-            right: 40,
-            top: 40,
-            bottom: 40
+            left: 50,
+            right: 50,
+            top: 50,
+            bottom: 50
         }
     },
     tooltips: {
@@ -22,7 +22,8 @@ export const optionsTemp = {
             },
             offset: 3,
             font: {
-                size: 20,
+                size: 28,
+                weight: '500'
             },
             color: 'black',
             formatter: function(value, context) {
@@ -65,10 +66,10 @@ export const dataTemp = (dataProps) => ({
         pointHoverBackgroundColor: 'white',
         pointHoverBorderColor: 'black',
         pointHoverBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointRadius: 5,
-        pointHitRadius: 5,
-        borderColor: "yellow",
+        pointHoverRadius: 6,
+        pointRadius: 6,
+        pointHitRadius: 6,
+        borderColor: "#f9d348",
         borderWidth: 2,
         lineTension: 0,
         hoverBackgroundColor: "rgba(255,99,132,0.4)",

@@ -5,10 +5,10 @@ export const optionsPressure = {
     },
     layout: {
         padding: {
-            left: 40,
-            right: 40,
-            top: 40,
-            bottom: 40
+            left: 50,
+            right: 50,
+            top: 50,
+            bottom: 50
         }
     },
     tooltips: {
@@ -18,11 +18,12 @@ export const optionsPressure = {
         datalabels: {
             align: 'top',
             padding: {
-                bottom: 3
+                bottom: 4
             },
-            offset: 3,
+            offset: 4,
             font: {
-                size: 20,
+                size: 18,
+                weight: 'bold'
             },
             color: 'black',
             formatter: function(value, context) {
@@ -68,9 +69,9 @@ export const dataPressure = (dataProps) => ({
         pointHoverBackgroundColor: 'white',
         pointHoverBorderColor: 'black',
         pointHoverBorderWidth: 2,
-        pointHoverRadius: 6,
-        pointRadius: 6,
-        pointHitRadius: 5,
+        pointHoverRadius: 7,
+        pointRadius: 7,
+          pointHitRadius: 7,
         borderColor: "black",
         borderWidth: 2,
         lineTension: 0,

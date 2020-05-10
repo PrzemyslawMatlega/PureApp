@@ -1,7 +1,7 @@
 <template>
     <div class="single-hour">
-        <div class="day">{{dateFilter(singleElement.dt_txt)}}</div>
-        <div class="hour">{{singleElement.dt_txt | hourFilter}}</div>
+        <div class="day" :class="{'day--border': dateConvert}"><span>{{dateConvert}}</span></div>
+        <div class="hour"><span>{{singleElement.dt_txt | hourFilter}}</span></div>
         <div class="forecast"><img :src="`https://openweathermap.org/img/wn/${singleElement.weather[0].icon}@2x.png`"
                 alt=""></div>
         <div class="temp"></div>
@@ -18,13 +18,13 @@
         <div class="wind-dir">
             <div class="wind-dir__content" v-if="singleElement.wind">
                 <img src="../assets/img/arrow.png" alt="" :style="`transform: rotate(${singleElement.wind.deg}deg)`">
-                <span>{{singleElement.wind.deg}}</span>
+                <span>{{degConvert}}</span>
             </div>
         </div>
         <div class="wind-speed">
             <div class="wind-speed__content" v-if="singleElement.wind">
-                <span>{{singleElement.wind.speed | speedFilter}} km/h </span>
                 <h6>{{windType}}</h6>
+                <span>{{singleElement.wind.speed | speedFilter}} km/h </span>
             </div>
         </div>
         <div class="pressure"></div>
@@ -55,25 +55,46 @@
         },
         computed: {
             windType() {
-                if (this.singleElement.wind.speed * 3.6 > 10) {
+                if (this.singleElement.wind.speed * 3.6 > 20) {
                     return 'Mocny'
+                } else if (this.singleElement.wind.speed * 3.6 > 10) {
+                    return 'Umiar.'
                 } else {
                     return 'Słaby'
                 }
-            }
-        },
-        methods: {
-            //na computed
-            dateFilter(value) {
-                if (value === this.dateBreakpoints[0]) {
+            },
+            dateConvert() {
+                if (this.singleElement.dt_txt === this.dateBreakpoints[0]) {
                     return 'Jutro'
-                } else if (value === this.dateBreakpoints[1]) {
+                } else if (this.singleElement.dt_txt === this.dateBreakpoints[1]) {
                     return 'Pojutrze'
                 } else {
                     return null;
                 }
-
+            },
+            degConvert() {
+                switch (true) {
+                    case (this.singleElement.wind.deg < 46):
+                        return 'Północny'
+                    case (this.singleElement.wind.deg < 91):
+                        return 'Pn.-Wsch'
+                    case (this.singleElement.wind.deg < 136):
+                        return 'Wschodni'
+                    case (this.singleElement.wind.deg < 181):
+                        return 'Pd.-Wsch'
+                    case (this.singleElement.wind.deg < 226):
+                        return 'Południowy'
+                    case (this.singleElement.wind.deg < 271):
+                        return 'Pd.-Zach.'
+                    case (this.singleElement.wind.deg < 316):
+                        return 'Zachodni'
+                    case (this.singleElement.wind.deg < 360):
+                        return 'Pn.-Zach.'
+                    default:
+                        return null
+                }
             }
+
         },
     }
 </script>
@@ -81,7 +102,6 @@
 <style lang="scss">
     .single-hour {
         @extend %column-base;
-        border: 1px solid #cecece;
 
         * {
             user-select: none;
@@ -91,11 +111,27 @@
             @extend %flex-cc;
             width: 14rem;
             text-align: center;
-            border-right: 1px solid #fafafa;
+            border-right: 2px solid $grey-border;
         }
 
-        div:first-of-type {
+        .day {
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            color: $grey-txt;
+            font-weight: bold;
             border-right: none;
+
+            &--border {
+                position: relative;
+                left: -2px;
+                border-left: 2px solid $grey-border;
+            }
+        }
+
+        .hour,
+        .wind-speed {
+            font-size: 2rem;
+            font-weight: bold;
         }
 
         .rain {
@@ -104,33 +140,55 @@
 
             &__content {
                 @extend %flex-col-cc;
+                border-right: none;
+
+                span {
+                    font-size: 2rem;
+                    font-weight: bold;
+                    padding-bottom: 0.2rem;
+                }
             }
 
             &__level {
                 width: 100%;
-                background: lightblue;
+                border-left: 2px solid $grey-border;
+                background: $blue-one;
                 max-height: 9rem;
             }
         }
 
         .wind-dir {
-            background: #f1f1f1;
+            background: $grey-bg;
+            border-right: 2px solid #fff;
 
             &__content {
                 @extend %flex-col-cc;
+                justify-content: space-between;
+                height: 60%;
+                margin-top:1rem;
 
                 img {
                     width: 3rem;
+                }
+
+                span {
+                    font-size: 1.8rem;
+                    font-weight: bold;
                 }
             }
         }
 
         .wind-speed {
-            background: #f1f1f1;
+            background: $grey-bg;
+            border-right: 2px solid #fff;
 
             &__content {
                 @extend %flex-col-cc;
 
+                h6 {
+                    margin: -1rem 0 0.7rem;
+                    font-size: 1.8rem;
+                }
             }
         }
 
