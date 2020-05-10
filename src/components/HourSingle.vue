@@ -68,6 +68,8 @@
                     return 'Jutro'
                 } else if (this.singleElement.dt_txt === this.dateBreakpoints[1]) {
                     return 'Pojutrze'
+                } else if (this.singleElement.dt_txt === this.dateBreakpoints[2]) {
+                    return this.singleElement.dt_txt.slice(0,10)
                 } else {
                     return null;
                 }

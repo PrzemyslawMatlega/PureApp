@@ -7,7 +7,7 @@
             <HourSingle v-for="singleElement in weatherData" :key="singleElement.dt" :singleElement="singleElement"
                 :dateBreakpoints="dateBreakpoints" />
             <AppChart :chartData="getTempData" :chartName="'tempChart'" />
-            <AppChart :chartData="getPressureData" :chartName="'pressureChart'"/>
+            <AppChart :chartData="getPressureData" :chartName="'pressureChart'" />
         </div>
 
     </div>
@@ -31,11 +31,11 @@
                 dateBreakpoints: []
             }
         },
-        computed:{
-            getPressureData(){
+        computed: {
+            getPressureData() {
                 return this.weatherData.map(singleElement => singleElement.main.pressure)
             },
-            getTempData(){
+            getTempData() {
                 return this.weatherData.map(singleElement => Math.round(singleElement.main.temp))
             }
         },
@@ -55,20 +55,19 @@
                 this.scrollStartValue = 0;
             },
             setDateBreakpoints() {
-                const tomorrow = new Date();
-                const dayAfterTomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2)
+                let dayCounter = 1;
 
-                function dateToExactString(date) {
+                function dateToExactString() {
+                    const date = new Date();
+                    date.setDate(date.getDate() + dayCounter);
                     const dd = String(date.getDate()).padStart(2, '0');
                     const mm = String(date.getMonth() + 1).padStart(2, '0');
                     const yyyy = date.getFullYear();
-
+                    dayCounter = dayCounter+1;
                     return `${yyyy}-${mm}-${dd} 00:00:00`
-                }
 
-                this.dateBreakpoints = [dateToExactString(tomorrow), dateToExactString(dayAfterTomorrow)]
+                }
+                this.dateBreakpoints = Array.from({length:3}, () => dateToExactString())
             }
         },
         mounted() {

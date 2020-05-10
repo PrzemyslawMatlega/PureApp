@@ -41,7 +41,6 @@
                         //Data for next 3 days 
                         this.weatherData = weatherData.list.slice(0,24)
                         this.loadingData = 'success';
-                        console.log(this.weatherData)
                     }
                     else{
                         this.loadingData = 'error'
